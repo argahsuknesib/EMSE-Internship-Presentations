@@ -1,0 +1,270 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+% \usetheme{Antibes}
+% \usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+% \usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+% \usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+% \usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+% \usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne\\ % Your institution for the title page
+\medskip
+\textit{k.bisen@yahoo.com} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{SLAM (Simultaneous Localisation and Mapping.)} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Introduction} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{What is SLAM?}
+SLAM \cite{b2} stands for Simultaneous Localisation and Mapping, which as the name states, is a way to initiate path planning and navigation in mobile autonomous robots.\\
+It computes a trajectory and models the whole environment (called a 'world' in Gazebo). 
+\end{frame}
+
+\begin{frame}
+    \frametitle{What is SLAM?}
+    \begin{block}{Localisation}
+        Localisation is employed to estimate the position of a robot, given the landmarks and obstacles. In other words, it 'shows' where 
+        the robot is in perspective of the other landmarks along with angular orientation which is important in our work.
+    \end{block}
+    \begin{block}{Mapping}
+        Mapping is the process through which the robot will know about the world it is in. Mapping is done with a LIDAR (Light Detection and Ranging) Sensor \cite{b1} from the robot. 
+    \end{block}
+    \begin{block}{SLAM}
+        SLAM consists of both Localisation and Mapping and estimates robot's pose and the landmark simultaneously, solving the problem of where to go?
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Chicken/Egg Problem}
+    SLAM is a Chicken Egg Problem in the context of the classic argument of who came first.
+    \begin{itemize}
+        \item A Map is needed for Localization.
+        \item Pose Estimate (Robot's Location) is needed for Mapping.
+    \end{itemize}
+\end{frame}
+
+\subsection{Visualising SLAM}
+\begin{frame}
+    \frametitle{SLAM Diagram}
+    \includegraphics[width=\textwidth]{images/slam-diagram.jpg}
+\end{frame}
+
+\subsection{Defining a SLAM Problem}
+\begin{frame}
+    \frametitle{SLAM Problem}
+    Given \begin{itemize}
+        \item Robot's Controls, $u\textsubscript{1}:T = {u_1, u_2,...,u_r}$
+        \item Observations, $z_1:T = {z_1, z_2,....,z_r}$
+    \end{itemize}
+    Wanted \begin{itemize}
+        \item Map of the whole environment, $m$
+        \item Path of the Robot, $x_0:T = x_0, x_1, x_2, ....x_r$
+    \end{itemize}
+\end{frame}
+
+\subsection{Probabalistic Approach for Motion}
+\begin{frame}
+    \frametitle{Probabalistic Approach}
+    A probabalistic approach is applied for SLAM problems as defining exactly where the robot is for Localisation sometimes increases it's uncertainity.
+    \includegraphics[width = 0.8\textwidth]{images/prob-slam.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Probabalistic Approach}
+    Path estimation and mapping in probabalistic world will be, $p(x\textsubscript{0:T}, m | z\textsubscript{1:T}, u\textsubscript{1:T})$ where,
+
+    \begin{itemize}
+        \item p $\longrightarrow$ distribution
+        \item x $\longrightarrow$ path
+        \item m $\longrightarrow$ map
+        \item $|$ $\longrightarrow$ given that
+        \item z $\longrightarrow$ Observations
+        \item u $\longrightarrow$ Controls
+    \end{itemize}
+\end{frame}
+
+\subsection{Graphical Model of SLAM}
+\begin{frame}
+    \frametitle{Graphical Model}
+    \includegraphics[width=\textwidth]{images/SLAM-Graph-Model.jpg}
+\end{frame}
+
+\subsection{More on SLAM}
+\begin{frame}
+    \frametitle{Why is SLAM a difficult problem?}
+    \begin{itemize}
+        \item Path of the robot as well as the map are both unknown, and they are correlated.
+        \item Mapping between Observations and the map is unknown. Thus, picking a different data association can cause divergence. This divergence is somewhat similar to the Weka's prediction of the log file, in which at some instances, it was predicted a different turn from the turn it already took.
+        \includegraphics[width=\textwidth]{images/slam-pose.jpg}
+        \end{itemize}
+\end{frame}
+
+\subsection{MultiRobot SLAM}
+\begin{frame}
+    \frametitle{Multiple Robots}
+    In a MultiRobot SLAM Simulation, there is an data association among the platforms. It is usually very tricky, but can be done using graph based appraches.
+\end{frame}
+
+\subsection{Models in SLAM}
+\begin{frame}
+    \frametitle{Motion Model}
+    Motion Model is being applied in the SLAM we are using\cite{b4}. The probabalistic equation for it will be, $p(x_t | x\textsubscript{t-1}, u_t)$
+    where,
+    \begin{itemize}
+        \item $x_t$ $\longrightarrow$ new pose of the robot.
+        \item $x\textsubscript{t-1}$ $\longrightarrow$ old pose of the robot.
+        \item $u_t$ $\longrightarrow$ control
+    \end{itemize}
+    In the gaussian model, the robot goes from Point A to Point B, without any pose change. SLAM we are using is a Non Gaussian Model thus helping us to know the pose, and direction of the robot.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Non Gaussian Model}
+    The transitional rotation is calculated with the value of $\delta_2$.\cite{b3}\\ 
+    \includegraphics[width=\textwidth]{images/nongauss-motion.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Observational Model}
+    This model relates measurement with it's pose. $p(z_t|x_t)$ The gaussian model goes straight to the obstacle, whereas the non gaussian model is shown below,
+    \includegraphics[width=\textwidth]{images/nongauss-observ.jpg}
+\end{frame}
+
+\section{Simulation Videos}
+\begin{frame}
+    \frametitle{Simulation of SLAM}
+    I will now demonstrate the simulation videos for Simultaneous Localisation and Mapping (SLAM).
+\end{frame}
+
+\section{Conclusion}
+\subsection{Comments and Future Work.}
+\begin{frame}
+    \frametitle{Future Work}
+    \begin{itemize}
+        \item As I was trying the SLAM, I implemented it in a world which was already there. I will implement the SLAM on our world now.
+        \item For the log file, the present log file formats already provided by ROS aren't usable for us. I searched and concluded that, the best bet is to subscribe to the /odometry topic in ROS and write file in python by making a function.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem{b1}Wikipedia contributors. "Lidar." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 15 May. 2021. Web. 17 May. 2021.  
+\bibitem{b2}Wikipedia contributors. "Simultaneous localization and mapping." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 6 May. 2021. Web. 17 May. 2021. 
+\bibitem{b3}Introduction to Mobile Robotics - Book.
+\bibitem{b4}Probabalistic Robots - Book.
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{Thank you for listening!}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
