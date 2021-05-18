@@ -235,6 +235,10 @@ It computes a trajectory and models the whole environment (called a 'world' in G
 \begin{frame}
     \frametitle{Simulation of SLAM}
     I will now demonstrate the simulation videos for Simultaneous Localisation and Mapping (SLAM).
+    \begin{itemize}
+        \item Autonomous navigation with SLAM \cite{b2}
+        \item A simple .csv log file demonstration.
+    \end{itemize}
 \end{frame}
 
 \section{Conclusion}
@@ -244,6 +248,7 @@ It computes a trajectory and models the whole environment (called a 'world' in G
     \begin{itemize}
         \item As I was trying the SLAM, I implemented it in a world which was already there. I will implement the SLAM on our world now.
         \item For the log file, the present log file formats already provided by ROS aren't usable for us. I searched and concluded that, the best bet is to subscribe to the /odometry topic in ROS and write file in python by making a function.
+        \item I implemented and got a sort of .csv output. I wish to work on that in future.
     \end{itemize}
 \end{frame}
 
