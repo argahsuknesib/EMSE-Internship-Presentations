@@ -1,0 +1,192 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Simulation} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Recap} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+    \frametitle{Recap from Last Week.}
+    In our last meeting, we
+
+    \begin{itemize}
+        \item Saw a simulation and motion planning using SLAM.
+        \item Discussed about if SLAM is the way to go or not.
+        \item Discussion about the log file.
+    \end{itemize}
+\end{frame}
+
+\subsection{Today's Agenda}
+\subsubsection{Alternative to SLAM}
+\begin{frame}
+    \frametitle{A Method apart from SLAM}
+    \begin{itemize}
+        \item In the last meeting, we felt that SLAM might not be the way to move forward with the simulator.
+        \item We might need to see other ways to achieve the goals, if required.
+        \item I also demonstrated a simple 'Go-Right' simulator logic.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A Method Apart from SLAM}
+    \begin{itemize}
+        \item In the small reinforcement learning of the simulator log file, I remember that in one such case, the Model predicted RIGHT, when actual value was FRONT.
+        \item Robot has a 360\textdegree  field of motion. I think that maybe, if we can record the movements in more than 4 such ways, we may have a better accuracy in prediction?
+        \item I am not sure how this will affect the Machine Learning Model, and if you need me to reverse back to 4 stages. I can do that. 
+    \end{itemize}
+\end{frame}
+
+\subsection{Orientation of the Robot}
+
+\begin{frame}
+    \frametitle{Robot's Orientation}
+    \includegraphics[width=\textwidth]{images/problem-in-4way.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proposed Robot's Orientation}
+    \includegraphics[width=\textwidth]{images/proposed-direction.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm Employed}
+    For the motion planning and obstacle avoidance of the turtlebot,
+    \begin{itemize}
+        \item We use the LIDAR (Light Detection and Ranging) sensor for this.
+        \item Goal is to keep being straight, i.e Front-Center
+        \item We check if there is an obstacle, if yes, we check if it is the cheapest. Otherwise, we keep moving.
+        \item As the goal is to be Front-Center, we change the angular velocity of the robot in the same manner (using the cost values)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulation}
+    Let us see the simulation now.
+\end{frame}
+
+\section{Log File}
+
+\begin{frame}
+    \frametitle{Log File}
+    I haven't prepared the log file, but I can log the data of x,y and presence of obstacle, and the next turn i.e Front-Center and Right-Center in the terminal. I will try to log them and format in a file and send it to you later, if it is fine by you.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time!}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
