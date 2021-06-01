@@ -1,0 +1,189 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of a Robot Behavior Learning Simulator.} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+\section{A recap from last meeting.}
+\begin{frame}
+    \frametitle{Recap}
+    \begin{itemize}
+        \item There was a discussion upon the log file and it's Implementation.
+        \item I discussed about the path-planning algorithms and their usage in our work.
+    \end{itemize}
+\end{frame}
+
+\section{Today's Agenda}
+\begin{frame}
+    \frametitle{Today's Agenda}
+    Today we will see how the complete path planning done completely by the robot. I implemented a Dijkstra path planning algorithm, in which I used the CostMap2D to decide to cost.
+\end{frame}
+
+\section{Navigation in ROS}
+\begin{frame}
+    \frametitle{Navigation}
+    Navigation in ROS is defined as process through which a robot is moved from the current node to the goal node. The step-by-step process for initiation of the planning is,
+    \begin{itemize}
+        \item Development of a World in Gazebo.
+        \item SLAM (Localization of the Robot and the Mapping of the World).
+        \item After SLAM is done, save the generated map. (Note : The map is generated as a PGM (portable graymap) file. The Map is very different to the World.)
+        \item The Goal Node is given and the Robot uses the Dijkstra's Algorithm to find the shortest path towards the Goal.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Navigation Stack}
+    \includegraphics[width=\textwidth]{images/navigation.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm Implemented (Dijkstra)}
+    As the algorithm is pretty famous in computer science for planning the path from a current node to the goal node.
+    The algorithm is implemented in our case is,
+    \begin{itemize}
+        \item Initial Node has the g-cost of 0, and it is added to the open-list.
+        \item Repeat the following while open-list is not empty: \begin{itemize}
+            \item  Extract the node with the smallest g-cost from open-list and call it current-node
+            \item  Mark it as visited by adding it into closed-list
+        \end{itemize}
+        \item If the current-node is the GOAL, trace back the path. Otherwise, we fimd the neighbours of the current node (3*3 grid neighbours as described by Prof. Nida's Comments)
+        \item If the node has already been visited, skip it.
+        \item If the node has not been visited and not in the open-list, check if the cost is less than the current cost we have. If yes, update the cost and the parent node.
+        \item If the node has not been visited, set the cost, set the parent node and add it to the open-list.
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Initiating the Simulation.}
+    \begin{block}{Starting the World in Gazebo}
+        roslaunch unit2$\_$pp simulation$\_$unit2.launch
+    \end{block}
+    \begin{block}{Starting the Path Planning}
+        roslaunch unit2$\_$pp unit2$\_$solution.launch
+    \end{block}
+
+    I will now proceed demonstrating the simulation.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Key Takeaways}
+    \begin{itemize}
+        \item With the previous 'obstacle-avoidance' simulation, I was not able to do the grid based modelling of the scenario as it is required.
+        \item Due to this approach, generating log file is easier (I hope). Because, as in the algorithm the node calculates the path successively of the neighbours. I also think I will be able to make the use of /twist/ topic in ROS to output the Rotation.
+        \item I tried to use the inherant csv file generation by ROS log file, but our usecase is different thus I will have to write a seperte node to subscribe to specific topics and then log it into a file.
+        \item I have a better way to model the World with the boundaries and squares being exactly described the way they should be. I will continue working with the present map that I made for the current log file simulation.
+        \item The present simulation is ready to be pushed to the Gitlab repository of EMSE.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
