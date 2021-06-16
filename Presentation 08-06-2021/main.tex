@@ -1,0 +1,163 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+    \frametitle{Recap from last week.}
+    In our last meeting on Friday, we saw the implementation of dijkstra's algorithm for path planning. The robot was able to follow a trajectory from the start point to the goal.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Today's Agenda}
+    The objectives for our meeting were set to be: 
+    \begin{itemize}
+        \item To make sure the robot follows the same trajectory in $<=$ 10 iterations.
+        \item Try to implement other path planning algorithms.
+        \item Try to organize the folder's structure in a way to promote ease of usage by giving the commands in terminal. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Robot's Trajectory in 10 iterations}
+    The robot was able to follow the same trajectory and execute in nearly same time, in the range of 2.3 to 2.7 seconds in the scenario.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Implementing other path planning algorithms.}
+    Path Planning was done with Dijkstra's algorithm\cite{p1} in the last week. Two more algorithms were implemented after that.
+    These algorithms were,
+    \begin{itemize}
+        \item A\textsuperscript{*} Algorithm. \cite{p2}
+        \item GBFS Algorithm (Greedy Best First Search) Algorithm. \cite{p3}
+    \end{itemize} 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulations}
+    Let us now see the simulations for GBFS and A* algorithm's implementation. Moreover, I ran these algorithms about 5 times from start to end and I found the same trajectory.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Organizing the folder's structure.}
+    All the modules are organized in a single folder now. As Prof. Mihaela requested in the last meeting, you can now choose the algorithm you wish to implement in the terminal line by launching that specific launch file.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem  {p1} Wikipedia contributors. "Dijkstra's algorithm." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 26 May. 2021. Web. 8 Jun. 2021. 
+\bibitem{p2} Wikipedia contributors. "A* search algorithm." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 29 May. 2021. Web. 8 Jun. 2021.
+\bibitem{p3} Wikipedia contributors. "Best-first search." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 12 Jan. 2021. Web. 8 Jun. 2021.
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

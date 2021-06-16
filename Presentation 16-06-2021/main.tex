@@ -1,0 +1,234 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of a Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} 
+\tableofcontents
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Multiple Robots.} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Introduction} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+    \frametitle{Introduction}
+    A collection  of  two  or  more  autonomous mobile robots working together are termed as teams or societies of  mobile  robots.  In  multi  robot  systems (MRS)  simple  robots  are allowed  to  coordinate  with  each  other  to  achieve  some  well defined  goals.  In  these  kinds  of  systems  robots  are  far  less capable  as  an  entity,  but  the  real  power  lies  in  cooperation  of multiple  robots. 
+\end{frame}
+
+\subsection{Multi Robot Systems}
+\begin{frame}
+    \frametitle{What are Multi Robot Systems?}
+    The collective coordiantion, cooperation and collaboration of these multiple robots is constituted to be in the domain of Multi Robot Systems. It is more of a subfield of Multi Agent Systems than of Robotics, as here the robot is nothing but a point object (having only 4 movements and 360\textdegree field of motion). On the contrary, a robot is normally visualized as someone with more than one joint. In our scenario, a robot is nothing but a physical embodiment of an agent with goals and beliefs. (Please correct me if I am wrong).
+
+    \begin{quote}[Aristotle]
+       "The whole is definitely more than it is parts."
+    \end{quote}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{How to execute path planning?}
+    Path Planning is done in the same fashion as single robot systems. The usual SLAM (Simultaneous Localization and Mapping) is executed, and the map is saved. The map is then used for doing the path planning. 
+\end{frame}
+
+\subsection{Complications in Path Planning in MRS}
+\begin{frame}
+    \frametitle{Complications}
+    Designing a path planning algorithm is hard in multiple robot systems. There are complications, but it totally depends on us if we wish to include those shortcomings in the simulation or wish to care about them. I will describe the complications in the subsequent slides.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Major Questions in MRS}
+    \begin{itemize}
+        \item If the robot is in continous domain or discrete domain?
+        \item If the robots are labelled or unlabelled?
+        \item If the architecture is centralized or decentralized?
+        \item If the communication is explicit or implicit?
+        \item If the robots are homogenous?
+    \end{itemize}
+\end{frame}
+
+\subsection{Collision Planning}
+
+\begin{frame}
+    \frametitle{What happens if there is a collision?}
+    If there are multiple robots moving in an environment, we can assign different goals to different robots but, the issue lies 'if' there is a collision, and if there is, then how should one deal with it? (I am not sure, if this will be important to our application, but I read to inform you about the constraints.)
+\end{frame}
+
+\begin{frame}
+    \frametitle{Types of Possible Collisions}
+    \includegraphics[width=\textwidth]{images/MRS-Collision.jpg}
+\end{frame}
+\subsection{Coupled Path Planning}
+\begin{frame}
+    \frametitle{Coupled Path Planning}
+    In a coupled path planning algorithm, the robots share the same space time whereas the space time is different in the decoupled path planning algorithms. 
+    The robot has a configuration space in Coupled path planning, and the joint space is given by the cartesian product of each robot's configuration space. The dimensionality thus, increases with the number of robots. A* algorithm in this case requires time which is atleast exponential with the search space
+    The worst case complexity in A\textsuperscript{*} in the case will be O(M\textsuperscript{N}) where N is the number of robots. It is an NP hard problem to solve to make the problem optimal, but I don't think we should focus on optimality, but rather the functioning first.
+
+    I have attached 3 papers related to path planning and MRS in the mail.
+\end{frame}
+\subsection{Decoupled Path Planning}
+\begin{frame}
+    \frametitle{Decoupled Path Planning}
+    Decoupled path planning is in a well informed environment, and the goals are arranged in a way such that any robot standing for a goal will not prevent other robot from reaching it's goal. The robot is always able to find a trajectory which is collision free with other robot.
+\end{frame}
+
+\subsection{Prioritization}
+
+\begin{frame}
+    \frametitle{Prioritization}
+    In a decoupled path planning, Prioritization is very important as it helps you decide collision management. Prioritization is majorly done following,
+    \begin{itemize}
+        \item Ideal Path Length
+        \item Planning Time.
+        \item The clutter present in the workspace.
+        \item The prospects of the path.
+    \end{itemize}
+
+    \begin{block}{Note}
+        I am sure, these problems are not very important if we try to do the simulation with 2 robots, but if we go for more than 2, we will have to consider these issues.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Consensus Algorithm}
+    There is also a consensus algorithm where all the robots follow the pose and path of one single robot and decide to follow the same path, developing a swarm-like movement.
+\end{frame}
+
+\section{Simulation of Turtlebot}
+
+\begin{frame}
+    \frametitle{Simulation}
+    Let us see the videos for the simulation now.
+\end{frame}
+
+\section{Other progress.}
+
+\begin{frame}
+    \frametitle{Optimizing the existing Path Planning in ROS}
+    On a different note, I am also trying to optimize the path planning that we did in our previous meetings, namely Dijkstra, GBFS and A\textsuperscript{*} algorithms. I am trying to make a function in which we can clearly decide the motion in 4 directions and then also decide a buffer time (0.5 seconds) of stopping before making a movement left or right.
+    \begin{block}{System Requirements}
+        As we want to simulate more than one robot, the system Requirements are high computationally than simulation of a single robot.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Regarding the log file}
+    The costmap2D is represented as a One Dimensional Array with values ranging from 255 (black) to 0-1 (white) and values in between. The number of grid cells constitute the number of values in that specific array. I will try writing a function which uses the values and declares the obstacles/not obstacle nearing the robot. 
+\end{frame}
+
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
