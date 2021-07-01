@@ -1,0 +1,151 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Robot Simulation]{Implementation of a Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+    \frametitle{Improvements Made}
+    To be honest, I was not very productive this week. I apologize for that. I saw the collision avoidance methods and algorithms that I saw last week, but wasn't able to implement those algorithms. Moreover, I wasn't able to get the function up and running to print the log file for obstacle/free-space detection. I did however followed for some different approaches I can do multi robot path planning and have some questions for the same to ask after the end of the presentation.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Approaches to use.}
+    As I wasn't able to implement those collision avoidance algorithms, I looked for various different approaches.
+    \begin{itemize}
+        \item Multi TurtleBot Simulation - This package is present with an argument for the number of turtlebots you want in the environment and it's starting position.
+        \item Interceptor Simulation - One robot will move and the other will try to intercept it's path and then the particular collision avoidance will be done.
+        \item Another Multiple Robot Simulator Package - which will convert the map into a search graph and then execute the path planning. (Attached paper in the mail)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulation Video}
+    I will show a simulation video for the multiple turtlebot simulation package now.
+\end{frame}
+
+\begin{frame}
+    \frametitle{A request for help.}
+    I'm not sure if the approach I am employing for generation of obstacle/free-space log file, and since I am not an expert in this topic it will be helpful if I could get some idea in ROS. I asked Prof. Boissier for help as he had a lecture about ROS in one of his lectures. He told me to contact someone named "Fabien Badeig" in April but I didn't get a reply. It will be helpful for me if it is possible by you to ask him to reply. (It is completely fine not to, I will search more on such methods with no worries).
+    \includegraphics[width=0.9\textwidth]{images/image.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A question.}
+    As we are trying to 'predict' the colliison in an environment in the end goal of the experiment. If this is the case, won't using a predefined algorithm with more than 99/100 accuracy of collision avoidance will be irrevelant for the simulation study we are doing?  
+\end{frame}
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
