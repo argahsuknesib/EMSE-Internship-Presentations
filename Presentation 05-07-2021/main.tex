@@ -1,0 +1,189 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE-ERI-Robot]{Implementation of a Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Recap}
+\subsection{Last Meeting.}
+
+\section{An Introduction}
+\subsection{What is ROS?}
+\begin{frame}
+    \frametitle{What is ROS?}
+    ROS stands for Robot Operating System, which is not exactly an operating system but more like a middleware between the Robot and the Enginner controlling the Robot. It provides a great level of abstraction over the drivers that are needed to move the robot in real-time, also providing a prototype of its working in any simulator software. 
+\end{frame}
+\subsection{What is Gazebo?}
+\begin{frame}
+    \frametitle{What is Gazebo?}
+    Gazebo is the most popular simulation software for ROS. It is the industry/research standard for the simulations. The accompanying physics engine is similar to real life in the terms of friction and collisions. The overall accuracy of the simulator to the real-time robot is around 85 percent. 
+\end{frame}
+\subsection{What is a Turtlebot?}
+    \begin{frame}
+        \frametitle{Turtlebots}
+    Turtlebot and Turtlebot3 are open-source robots with both hardware and software being open sourced. In the multi agent system paradigm, these both are nothing but a point object. They are equipped/can be equipped with various sensors and can be modified. In Gazebo, as we are not using any sort of real hardware/ labaratory environment even sky is not the limit, as people simulate mars rover robot in Gazebo. 
+    \end{frame}
+\subsection{What is SLAM?}
+\begin{frame}
+    \frametitle{What is SLAM?}
+    SLAM stands for Simultaneous Localization and Mapping, which as the name explains localizes the robot in an environment and maps. For any sort of Navigation to happen, the robot should know where it stands in the map and should know how the map actually looks like. The Turtlebot used it's LIDAR sensor to detect the environment and then save it.
+\end{frame}
+\subsection{What is Navigation Stack?}
+    \begin{frame}
+        \frametitle{Navigation Stack}
+        Navigation Stack deals with the tools/libraries required for the robot to navigate from a position to the goal (strategies of doing the motion can be defined by us)
+        \includegraphics[width=\textwidth]{images/navigation-stack.png}
+    \end{frame}
+\section{Work Done.}
+\begin{frame}
+    \frametitle{The ways we tried to solve the problem earlier.}
+    \begin{itemize}
+        \item As we wished to avoid the obstacle and go to the goal, I first tried to use the LIDAR sensor, and on contact with the obstacle it would change it's angular and linear velocity. It was arbitrary and not very useful. One could've tried to make it 'stop' if it reached a particular point, but as it did not know anything about it's environment the robot would not know if it is kept in desert or himalayas which is not a good approach. 
+        \item The next objective became to make the robot know wherever it is, and thus came SLAM to the equation, SLAM helped us to localize the robot in the environment and then map it. After the mapping was done, it was able to go from A to B, but the motion was the shortest path (with respect to the angular field of motion) as it had a 360 degree of motion. We wish the robot to move in 4 ways.
+        \item The path planning in navigation came next, which we are using now. Here, we mapped an environment, made a map with blocks and tiles and walls, which is alterable to personalized preference in various scenarios. 
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{The ways we tried to solve the problem earlier.}
+    \begin{itemize}
+        \item The map is then cut up into various smaller boxes considering the radius of the turtlebot. The costmap 2D thus divides the map into such parts. Note that the costmap2D and the planning we are initiating right now is only with the 'global planner'. I will add the local planner functionality in further steps (I am still reading on it).
+        \item The local planner is mostly used for the collision avoidance, collision from another robot or an object which is mobile in the environment. I am not much read into the field but reading a few survey papers, I have a sense of understanding that the collision avoidance methods are still a good area of research. I read on an internet forum that probabalistic approach to the problem is the most robust way most of the time. I read a paper titled "Probabilistically Safe Motion Planning to Avoid Dynamic Obstacles with
+        Uncertain Motion Pattern" but was not able to understand much in 1 day. I have attached the paper in the mail.
+    \end{itemize}
+\end{frame}
+\subsection{Since Last Meeting.}
+\begin{frame}
+    \frametitle{Work : since last meeting.}
+    \begin{itemize}
+        \item The GitLab repository's folder structure was organized.
+        \item The schema to organize the main software's folder structure was worked on.
+        \item Method to store the neighbour's position and state was done, conceptualized and found but has some bugs at the moment.
+        \item I read about and saw some projects using the local planner's implementation.
+        \item I found out that I can also program the move base node for it to move in a better deterministic way. 
+    \end{itemize}
+\end{frame}
+\subsection{ROS Graph}
+\begin{frame}
+    \frametitle{ROS Graph}
+    
+    \includegraphics[width=\textwidth]{images/rosgraph_active_nodes.png}
+\end{frame}
+\subsection{Goals : Next Meeting.}
+\begin{frame}
+    \frametitle{Goals : Next Meeting}
+    For the next meeting, 
+    \begin{itemize}
+        \item I propose for me to sort out the bug and put out the basic version of the log file. 
+        \item Rest other goals depend on you, and the next meeting date.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
