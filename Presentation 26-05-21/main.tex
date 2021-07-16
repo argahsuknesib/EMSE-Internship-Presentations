@@ -1,0 +1,183 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+% \usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+% \usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+% \usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+% \usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+% \usetheme{Rochester}
+%\usetheme{Singapore}
+% \usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+% \usecolortheme{albatross}
+%\usecolortheme{beaver}
+% \usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+% \usecolortheme{dove}
+%\usecolortheme{fly}
+% \usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+% \usecolortheme{seagull}
+%\usecolortheme{seahorse}
+% \usecolortheme{whale}
+% \usecolortheme{wolverine}
+% 
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of a Robot Behaviour Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\section{A Recap}
+\subsection{Previous Method}
+\subsubsection{Introduction}
+\begin{frame}
+    \frametitle{Previous Method}
+    In the previous method I demonstrated the method for 'Obstacle Avoidance' in a Gazebo World. The turtlebot was able to set the angular velocities according to the obstacle. The turtlebot would then move to another cell/part of the Grid next.
+\end{frame}
+\subsubsection{Shortcomings}
+\begin{frame}
+    \frametitle{Shortcomings of the Previous Method}
+\includegraphics[width=\textwidth]{images/heuristic.jpg}
+\end{frame}
+\begin{frame}
+    \frametitle{Shortcomings of the Previous Method}
+    \includegraphics[width=\textwidth]{images/shortcoming.jpg}
+\end{frame}
+\subsection{Solving the Shortcoming}
+\subsubsection{How?}
+\begin{frame}
+    \frametitle{Solving the Shortcoming}
+\begin{itemize}
+    \item The problem should be solved with SLAM (Simultaneous Localization and Mapping)
+    \item SLAM as I discussed in previous meeting is used for Localisation (deciding where the robot is) and Mapping (getting information about the Map World)
+    \item But, pre-existing SLAM Method (go-to-goal) uses the most optimized algorithm. This will cause a problem in our application. I will explain it with a diagram in the next slide.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Path Planning.}
+    \includegraphics[width=\textwidth]{images/SLAM-Path-Planning.jpg}
+\end{frame}
+\begin{frame}
+    \frametitle{Path Planning - Problems}
+    \begin{itemize}
+        \item As it uses an optimized algorithm for path planning, the robot will employ various degrees of rotation.
+        \item This practice is not useful for our application as we wish to employ just 4 MOVEMENTS not multiple.
+        \item Thus, a planner node is to be written over the current SLAM procedure using either of these algorithms. \begin{itemize}
+            \item A\textsuperscript{*}, or A algorithm.
+            \item RRT (Rapidly Exploring Random Trees) or RRT\textsuperscript{*} algorithm.
+            \item D or D* Algorithm.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution to Path Planning}
+\begin{itemize}
+    \item I have studied A\textsuperscript{*} algorithm in my Bachelor's Degree, and it is quite a common algorithm in Artificial Intelligence.
+    \item I will try to employ the algorithm in a way to the present problem, it won't be A\textsuperscript{*} as maybe it won't be optimized.
+    \item The way for path planning will be to write the movement and velocity with just 4 Movements.
+    \item If the present algorithm is fine for the process. We will move with it, otherwise we will employ some other Algorithm.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Next Goal}
+    \begin{itemize}
+        \item Prepare a README.md file, elaborating the setup/basic things to setup a Turtlebot3 environment with a world in Gazebo in Professor Nida's Virtual Machine.
+        \item Work on the planner algorithm for SLAM.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Professor Mihaela's Comments.}
+    I suggest in immediate time (this week, next week)
+    \begin{itemize}
+        \item - implement firstly a strategy (quite simple in 90° only but assuring that the goal will be reach in a finite time)
+        \item - extract the logs. the logs have to be in a "cute format" (xml or json or other format semi-structured).
+        \item - treat the logs to put in "Nida need format"
+        \item - The logs will be analyzed with ML methods
+        \item Than implement other strategies
+        \item Data will be changed in \emph{arff} format to be used in Weka. 
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+\end{document} 

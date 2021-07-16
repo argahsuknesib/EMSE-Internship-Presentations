@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[]{Implementation of a Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[UCLA] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{First Section} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{An Overview.}
+On our last meeting on 8th April, we discussed the expectation from the next meeting. Tasks were given, such as \\
+\begin{itemize}
+    \item I had to do a succesfull simulation of one robot.
+    \item I had to record the activities in a log file and present.
+    \item I had to make the GUI for the robot so that it could spawn up different worlds and different robots.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulation in Gazebo}
+    \begin{block}{Retrospective}
+        \begin{itemize}
+            \item In our last meeting, I introduced the idea of using containers for deployment. I faced difficulties in using the container 
+            as I never used it before the project. I spent close to 2 days struggling with it's issues.
+            \item There are differences in between various ROS versions that are released every 2 years, development speed would've been 
+            better if ROS was backwards compatible like Java.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulation in Gazebo}
+    I will present a simulation of one robot (turtlebot3) in our case, in a world (the simulation environment) in Gazebo. I have implemented
+    the Monte Carlo Localization Algorithm which works on optimizing the nearest weights with the highest probabilities, thus deciding the 
+    destination of the robot. \\
+    The simulation was ran for 30 minutes by me, and I recorded the log file for each and every node.
+    Unfortunately, I was not able to convert the .bag file format to .csv/.json/.xml due to the software I found for such were using deprecated
+    packages in python. I will try to do it, or I can send the .bag file itself whatever is required.\\
+
+    Let's see the simulation now.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Questions}
+    \begin{itemize}
+        \item What are the expectations from the UI? Is there any preferred way to which I should build it or if it should be simple and 
+        minimalistic?
+        \item The end robot in which we are targeting the simulation software, what is it? Is it a turtlebot3 or a turtlebot2, as there are OS based complications in between both.
+        \item In the end robot, what kind of mini-PC board we have?
+        \item Are we employing a LIDAR sensor? and if yes, what other sensors are we employing in the turtlebot?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{RQT-Graph}
+    \includegraphics[width = \textwidth]{Images/rosgraph.png}
+\end{frame}
+
+\begin{frame}
+\Huge{\centerline{Thank You!}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

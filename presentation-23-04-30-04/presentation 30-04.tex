@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE]{Implementation of a robot behaviour learning simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh Bisen} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne.\\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Recap} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Last week} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{Last Week 23/04}
+In our last meeting, we talked about the working of the simulator and the way it should log the data format from the simulation when it is running. 
+I talked about the tools I might use to make the GUI and came to know the format for the log file.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Today's Agenda}
+    I was not able to work upon the data-log part of the simulation, but worked on 
+    \begin{itemize}
+        \item Deciding the tool for Robot's GUI
+        \item Making the GUI with a small turtlesim robot simulation
+        \item Making the model for Gazebo's board, with boxes in Gazebo simulator
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Future Works}
+    \begin{itemize}
+        \item I did not use JavaFX for making the GUI, after I read about ROS's RQT development kit.
+        \item The way I made the GUI for a turtlesim simulation, I will have to make a plugin for logging the data in our preferred format.
+        \item To make a box in 3D modelling, that entirely covers the box in our gazebo simulation.
+        \item Placing the box in Gazebo, and trying to SLAM \textit{(Simultaneous Localization and Mapping)} the robot around various boxes by giving a final goal point.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Demonstrations}
+    Let's move forward to see the demonstration.
+\end{frame}
+
+\begin{frame}
+    \frametitle{A humble suggestion}
+    Due to working at home conditions right now, I find it a bit hard to focus. I chose not to go to Labaratory, due to the risks.
+    I would appreciate if we could have more than one meeting in a week, with either one of you (if there are schedule clashes). It will help me focus more on the work than 
+    thinking 'friday is too far' and working loosely. \\
+
+    \includegraphics[width = 10 cm, height = 5cm]{Images/0638706d7934998fa4388fd46b67b425.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Last Slide}
+    Thank you for your time. I hope you have a great day.
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------------------------------
+
+\end{document} 
