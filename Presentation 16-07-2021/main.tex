@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[ROS]{Implementation of a Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh BISEN} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+
+\section{Introduction}
+\subsection{Work Done}
+
+\begin{frame}
+    \frametitle{Work Done}
+    \begin{itemize}
+        \item I started reading on few local planner techniques, namely DWA planner and TEB planner. I have started learning the TEB Planner.
+        \item I tried doing the log file, which has some bugs due to the libraries involved in the computation.
+        \item I read on another path planning technique useful to us in local planning too.
+    \end{itemize}
+\end{frame}
+
+\section{Architecture}
+\begin{frame}
+    \frametitle{ROS + Gazebo control architecture}
+    \includegraphics[width=0.9\textwidth]{images/Gazebo_ros_transmission.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ROS + Gazebo control architecture}
+    \includegraphics[width = 0.9\textwidth]{images/implementation_view.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ROS + Gazebo control architecture}
+    \includegraphics[width=0.75\textwidth]{images/deployment_view.jpg}
+\end{frame}
+
+
+\section{The Log File}
+\subsection{Current Status}
+\begin{frame}
+    \frametitle{Current Status}
+    \begin{itemize}
+        \item I am able to detect obstacle in nearby 3*3 space.
+        \item I have made function to detect and print the other required values in the csv file.
+        \item The problem is with the toning and arranging the log now.
+    \end{itemize}
+\end{frame}
+\subsection{Problems Faced}
+\begin{frame}
+    \frametitle{Problems Faced}
+    \begin{itemize}
+        \item ROS doesn't have good enough libraries for you to make the log file in csv.
+        \item I can print the values if there is that one specific topic to be considered and subscribed.
+        \item If there are many such topics, with which one has to get the value. The problem of 'synchronousity'comes in the effect.
+        \item For example, it is entirely possible that one topic can publish before the other topic and so on.
+        \item There are methods to avoid this, and I tried one but had no luck.
+        \item Gazebo does in a different way, I will look at how they try to do the log file generation.  
+    \end{itemize}
+\end{frame}
+\subsection{Potential Solution}
+\begin{frame}
+    \frametitle{Potential Solution}
+    Solving the sync problem by looking into more open source code of people who have approached the same problem. As, the documentation is less on this one. Trial and Error will be the best method.
+\end{frame}
+\section{Path Planning Alternatives}
+\subsection{Rapidly Exploring Random Tree}
+\begin{frame}
+    \frametitle{Rapidly Exploring Random Tree}
+    In this method, there is no definitive strategy for the robot to move towards it's goal. Instead, the robot randomly picks a node and then carries on the motion forward. I am not sure if one can make the agent move in only 4 directions, but I will see.
+    \includegraphics[width = 0.8\textwidth]{images/RRT.png}
+\end{frame}
+\subsection{Artificial Potential Field}
+\begin{frame}
+    \frametitle{Artificial Potential Field}
+    In this path planning method, the whole environment is thought of as an energy-thermodynamic field where the goal is the opposite charge to the obstacle as well as the robot. So the robot will repel the obstacle and other robots but will reach the goal.
+    Here too I am not sure if the movement will be in 4 directions.
+\end{frame} 
+\section{End}
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
