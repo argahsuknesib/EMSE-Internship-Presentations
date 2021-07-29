@@ -1,0 +1,180 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+% \usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+% \usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[EMSE Robot]{Implementation of a Robot Behaviour Learning Simulator} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Kushagra Singh BISEN} % Your name
+\institute[EMSE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Ecole des Mines de Saint Etienne \\ % Your institution for the title page
+\medskip
+\textit{kushagrasingh.bisen@etu.emse.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+    \frametitle{Work Updates}
+    
+    \begin{itemize}
+        \item Log files are working and I can produce the log files.
+        \item Method for Dynamic Obstacle Avoidance is done.
+        \item Shift from Turtlebot2 to Turtlebot3 is done.
+    \end{itemize}
+    In the subsequent sections, I will talk about these different sections
+\end{frame}
+
+\begin{frame}
+    \frametitle{On the Log File}
+    Regarding the log file, we are using the odometry topic to produce the log for detailing the 2D position of the robot. This particular part has been executed.\\
+    Now, when we talk about the robot's neighbouring space, then some problems arise which we are trying to solve from last 3 meetings.
+    \begin{itemize}
+        \item We wish to know the neighbouring grid space and the obstacle of the robot as it is moving.
+        \item I tried with calculating the path and then realized that solution to the problem is not 'scalable' at all.
+        \item The particular solution is not accurate either, and will provide a bad result in our experiment.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Continued --- On the Log File}
+    \includegraphics[width=\textwidth]{images/situation.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Continued --- On the Log File}
+    Regarding the simulation with log file, I know that,
+    \begin{itemize}
+        \item We wish to predict the future trajectory of the robot.
+        \item The previous simulator (with Java i.e before my internship) could not consider more than 20 obstacles.
+        \item The reinforcement learning decision tree based model for predicting the trajectory is done.
+        \item I come to generate the data for the machine learning model to train on, on various different environments.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Continued --- On the Log File}
+    Now, the idea is to generate the data for the machine learning model 'from the environment'. But there are some problems with it, 
+    \begin{itemize}
+        \item The environment can not generate any data, the map can be used for the data.
+        \item The global costmap is made by using the 360 degree LIDAR sensor.
+        \item The robot has some inertia and some ability to 'cut the corners' when it is going from A to B.
+        \item The method I was making (3 by 3) grid is not accurate as the robot can not follow the path totally. 
+        \item The old method is not very accurate, and to 'predict' the trajectory and as a point of error is not acceptable. We can not use that method.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle {On the Robot Simulation}
+    \includegraphics[width=\textwidth]{images/Architecture.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle {On the Robot Simulation}
+    So, the current method can choose the grid size, and the data will be accurate to the movement of the robot and it doesn't exactly take the data from the robot or the robot doesn't publish the data but the ROS architecure uses the sensor on the robot because there is no other way to do the same.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dynamic Obstacle Avoidance}
+    I have included the method for avoiding dynamic obstacle or the other robot, but since we want to predict the trajectory using a pre-existing approach is not good (I think) so I have no implemented. (But I can show you a simple demonstration)
+\end{frame}
+
+\begin{frame}
+    \frametitle{Shift from Turtlebot2 to Turtlebot3}
+    I did this because we have Turtlebot3 in our lab and they should run on the same software otherwise there will be a driver/controller issue. Also, for the obstacle avoidance, a 360 degree LIDAR sensor is available in the Turtlebot3.
+\end{frame}
+
+
+\begin{frame}
+\Huge{\centerline{Thank you for your time.}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
